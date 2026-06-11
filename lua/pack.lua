@@ -1,7 +1,6 @@
 vim.pack.add({
 	"https://github.com/nvim-mini/mini.nvim",
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/nvim-treesitter/nvim-treesitter",
 	"https://github.com/mason-org/mason.nvim",
 	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/folke/which-key.nvim",
@@ -22,7 +21,6 @@ require("flash").setup({
 require("mini.diff").setup()
 require("mini.icons").setup()
 require("mini.pairs").setup()
-require("mini.statusline").setup()
 require("mini.statusline").setup()
 local colors = require("mini.colors")
 colors.setup({})
@@ -53,10 +51,8 @@ require("mini.files").setup({
 	},
 })
 
--- vim.keymap.set("n", "<leader>e", "<cmd>lua MiniFiles.open()<CR>", { desc = "Toggle Minifiles to open"})
-local Minifiles = require("mini.files")
-Minifiles.setup()
 vim.keymap.set("n", "<leader>e", function()
+	local Minifiles = require("mini.files")
 	Minifiles.open(vim.api.nvim_buf_get_name(0), false)
 	Minifiles.reveal_cwd()
 end, { desc = "Toggle into currently opened directory" })
@@ -120,7 +116,17 @@ MiniSnippets.setup({
 })
 MiniSnippets.start_lsp_server({ match = false })
 
-require("mini.surround").setup()
+require("mini.surround").setup({
+	mappings = {
+		add = "gsa", -- Add surrounding
+		delete = "gsd", -- Delete surrounding
+		find = "gsf", -- Find surrounding
+		find_left = "gsF", -- Find surrounding left
+		highlight = "gsh", -- Highlight surrounding
+		replace = "gsr", -- Replace surrounding
+		update_n_lines = "gsn", -- Update 'n_lines'
+	},
+})
 require("mason").setup()
 
 require("mini.notify").setup({

@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 vim.keymap.set("n", "qq", ":nohl<CR>", { desc = "Clear highlights", silent = true })
+vim.keymap.set("n", "<C-c>", ":lua MiniSnippets.session.stop()<CR>", { desc = "Clear highlights", silent = true })
 
 vim.keymap.set("n", "L", ":bNext<CR>", { desc = "Next Buffer", silent = true })
 vim.keymap.set("n", "H", ":bprevious<CR>", { desc = "Previous Buffer", silent = true })
